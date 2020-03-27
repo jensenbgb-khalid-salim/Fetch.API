@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="json.css">
+    <title>random-dogs</title>
+</head>
+<body>
+
+<style>
+
+  
+
+.button-section {
+
+margin-top: 3rem;
+text-align: center;
+height: 100px;
+background-color: red; 
+background-image: linear-gradient(-90deg,blue, yellow);
+
+}
+.button{
+color: black;
+background-image: linear-gradient(-90deg,rgb(247, 243, 9),blue);
+border-radius: 50%;
+font-size: 35px;
+text-align: center;
+}
+
+
+.column{
+background-image: linear-gradient(-90deg,black, yellow);
+border: 5px solid black;
+margin-top: 3rem;
+
+
+
+}
+.subtitle{
+text-align: center;
+font-size: 35px;
+
+background-color: black;
+
+}
+
+</style>
+
+
+  <main>
+    <section class="hero is-primary">
+      <div class="hero-body">
+        <div class="container">
+        
+          <h2 class="subtitle">
+            Welcome to Random Dogs! Click dawon here to see some random dogs!
+          </h2>
+        </div>
+      </div>
+    </section>
+    <div class="button-section">
+      <button class="button">Klick me!</button>
+    </div>
+
+    <div class="random-dogs  columns">
+
+    </div>
+    
+ 
+    
+   
+  </main>
+
+
+  <script>
+
+const API_URL ='https://dog.ceo/api/breeds/image/random/6';
+const randomDogsElement = document.querySelector('.random-dogs');
+const Button = document.querySelector('.button');
+
+
+async function getRandomDogs() {
+  
+
+  const response = await fetch(API_URL);
+  const json = await response.json();
+  console.log(json.message);
+  randomDogsElement.innerHTML = '';
+  json.message.forEach(dogImage=> {
+    
+    
+    const columnElement = document.createElement('div');
+    columnElement.classList.add('column');
+
+    const cardElement = document.createElement('div');
+    columnElement.appendChild(cardElement);
+
+    const cardImageElement = document.createElement('div');
+    cardElement.appendChild(cardImageElement);
+
+    const figureElement = document.createElement('figure');
+
+    cardImageElement.appendChild(figureElement);
+
+    const imageElement = document.createElement('img');
+    imageElement.src = dogImage;
+    figureElement.appendChild(imageElement);
+    randomDogsElement.appendChild(columnElement);
+
+
+
+  });
+ 
+}
+
+Button.addEventListener('click', getRandomDogs);
+  </script>
+
+</body>
+</html>
